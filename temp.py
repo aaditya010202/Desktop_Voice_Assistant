@@ -78,15 +78,15 @@ def takeCommand():
 def username():
     speak("What should i call you sir")
     uname = takeCommand()
-    speak("Welcome Mister")
-    speak(uname)
-    columns = shutil.get_terminal_size().columns
+    speak(f"Welcome, {uname}")
+    # speak(uname)
+    # columns = shutil.get_terminal_size().columns
      
-    print("#####################".center(columns))
-    print("Welcome Mr.", uname.center(columns))
-    print("#####################".center(columns))
+    print("#####################")
+    print(f"Welcome, {uname}")
+    print("#####################")
      
-    speak("How can i Help you, Sir")
+    speak(f"How can I Help you {uname}?")
 
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     clear = lambda: os.system('cls')
     clear()
     wishMe()
-    # username()
+    username()
     
     while True:
         query = takeCommand().lower()
@@ -133,5 +133,13 @@ if __name__ == "__main__":
             webbrowser.open("stackoverflow.com")
             
         elif "play music" in query or "play song" in query:
-            
+            speak(f"playing your song {uname}")
+            music_dir="C:\Users\aadib\Music"
+            songs=os.listdir(music_dir)
+            print(songs)
+            random=os.startfile(os.path.join(music_dir, songs[1]))
+        
+        elif "the time" in query:
+            strTime= datetime.datetime.now().strftime("% H:% M:% S")
+            speak(f"{uname}, the time is {strTime}")
 
