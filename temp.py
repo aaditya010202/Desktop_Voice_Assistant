@@ -48,7 +48,7 @@ def wishMe():
     else:
         speak("Good Evening Sir !") 
   
-    assname = ("Jarvis 1 point o")
+    assname = ("Jarvis")
     speak("I am your Assistant")
     speak(assname)
 
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     clear = lambda: os.system('cls')
     clear()
     wishMe()
-    username()
+    # username()
     
     while True:
         query = takeCommand().lower()
@@ -134,7 +134,7 @@ if __name__ == "__main__":
             
         elif "play music" in query or "play song" in query:
             speak(f"playing your song {uname}")
-            music_dir="C:\Users\aadib\Music"
+            music_dir="C:/Users/aadib/Music"
             songs=os.listdir(music_dir)
             print(songs)
             random=os.startfile(os.path.join(music_dir, songs[1]))
@@ -142,4 +142,112 @@ if __name__ == "__main__":
         elif "the time" in query:
             strTime= datetime.datetime.now().strftime("% H:% M:% S")
             speak(f"{uname}, the time is {strTime}")
+            
+        elif "send a mail" in query or "send an email" in query:
+            try:
+                speak("what should I say?")
+                content= takeCommand()
+                speak("whom should I send?")
+                to=input()
+                sendEmail(to,content)
+                speak("email has been sent!")
+            except Exception as e:
+                print(e)
+                speak("I am not able to send this email")
+
+        elif "how are you" in query:
+            speak("I am fine, Thank you")
+            speak(f"How are you, {uname}")
+        
+        elif "fine" in query or "good" in query:
+            speak("It's good to know that you are fine")
+        
+        elif "change name" in query:
+            speak("What would you like to call me, Sir ")
+            assname = takeCommand()
+            speak("Thanks for naming me")
+            
+        elif "what's your name" in query or "what is your name" in query:
+            speak(f"my friends call me {uname}")
+            print(f"my friends call me {uname}")
+        
+        elif f"exit {uname}" in query or f"quit {uname}" in query:
+            speak("Thank you for your time")
+            exit()
+            
+        elif "who made you" in query:
+            speak("I have been created by Aaditya")
+        
+        elif "joke" in query:
+            speak(pyjokes.get_joke())
+        
+        elif "who i am" in query:
+            speak("If you talk then definitely your human.")
+ 
+        elif "why you came to world" in query:
+            speak("Thanks to Aaditya. further It's a secret")
+        
+        elif 'search' in query or 'play' in query:
+             
+            query = query.replace("search", "")
+            query = query.replace("play", "")         
+            webbrowser.open(query)
+            
+        elif "power point" in query:
+            speak("opening Power Point presentation")
+            power = r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk"
+            os.startfile(power)
+            
+        elif "calculate" in query:
+             
+            app_id = "Wolframalpha api id"
+            client = wolframalpha.Client(app_id)
+            indx = query.lower().split().index('calculate')
+            query = query.split()[indx + 1:]
+            res = client.query(' '.join(query))
+            answer = next(res.results).text
+            print("The answer is " + answer)
+            speak("The answer is " + answer)
+        
+        elif 'change background' in query:
+            ctypes.windll.user32.SystemParametersInfoW(20,
+                                                       0,
+                                                       "C:/Users/aadib/Desktop/Wallpapers/Naruto-HD-Wallpapers",
+                                                       0)
+            speak("Background changed successfully")
+            
+        elif 'shutdown system' in query:
+                speak("Hold On a Sec ! Your system is on its way to shut down")
+                subprocess.call('shutdown / p /f')
+                
+        elif "restart" in query:
+            subprocess.call(["shutdown", "/r"])
+                
+        elif 'empty recycle bin' in query:
+            winshell.recycle_bin().empty(confirm = False, show_progress = False, sound = True)
+            speak("Recycle Bin Recycled")
+            
+        elif "where is" in query:
+            query = query.replace("where is", "")
+            location = query
+            speak("User asked to Locate")
+            speak(location)
+            webbrowser.open("https://www.google.nl / maps / place/" + location + "")
+            
+        elif "camera" in query or "take a photo" in query:
+            ec.capture(0, "Jarvis Camera ", "img.jpg")
+            
+        elif "will you be my gf" in query or "will you be my bf" in query:  
+            speak("I'm not sure about, may be you should give me some time")
+ 
+        elif "how are you" in query:
+            speak("I'm fine, glad you me that")
+ 
+        elif "i love you" in query:
+            speak("It's hard to understand")
+            
+        elif "Good Morning" in query:
+            speak("A warm" +query)
+            speak("How are you Mister")
+            speak(assname)
 
